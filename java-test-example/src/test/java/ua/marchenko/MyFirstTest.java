@@ -10,7 +10,7 @@ public class MyFirstTest {
     WebDriver driver = new ChromeDriver();
 
     @Test
-    public void firstTest() {
+    public void testFirstTest() {
         driver.get("http://google.com");
         driver.quit();
     }
