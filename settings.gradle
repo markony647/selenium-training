@@ -1,0 +1,3 @@
+rootProject.name = 'ua.marchenko'
+include 'java-test-example'
+
