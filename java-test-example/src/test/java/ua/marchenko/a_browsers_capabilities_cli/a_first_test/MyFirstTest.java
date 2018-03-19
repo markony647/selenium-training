@@ -1,4 +1,4 @@
-package ua.marchenko.a_first_test;
+package ua.marchenko.a_browsers_capabilities_cli.a_first_test;
 
 
 import org.junit.After;

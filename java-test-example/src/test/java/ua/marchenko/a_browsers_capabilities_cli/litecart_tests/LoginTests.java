@@ -1,4 +1,4 @@
-package ua.marchenko.litecart_tests;
+package ua.marchenko.a_browsers_capabilities_cli.litecart_tests;
 
 
 import org.junit.After;
