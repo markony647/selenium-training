@@ -27,7 +27,7 @@ public class StickerTest {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 4);
+        wait = new WebDriverWait(driver, 2);
         driver.get("http://localhost/litecart/en/");
     }
 
@@ -41,8 +41,7 @@ public class StickerTest {
         allProducts.addAll(campaignsProducts);
         allProducts.addAll(latestProducts);
         for (WebElement product : allProducts) {
-            product.findElement(By.className("sticker"));
-        }
+            Assert.assertTrue(product.findElements(By.className("sticker")).size() == 1);        }
     }
 
     public boolean isElementPresent(By locator) {
