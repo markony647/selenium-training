@@ -41,7 +41,8 @@ public class StickerTest {
         allProducts.addAll(campaignsProducts);
         allProducts.addAll(latestProducts);
         for (WebElement product : allProducts) {
-            Assert.assertTrue(product.findElements(By.className("sticker")).size() == 1);        }
+            Assert.assertTrue(product.findElements(By.className("sticker")).size() == 1);
+        }
     }
 
     public boolean isElementPresent(By locator) {
