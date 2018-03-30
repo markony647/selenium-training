@@ -2,22 +2,24 @@ package ua.marchenko.f_waits.a_presence_of_elem.task_13;
 
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.attributeToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
+import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
 public class WorkWithCartTests {
 
     WebDriver driver;
     WebDriverWait wait;
-    int currentNumOfProductsInCart = 0;
     By productsInSummaryTable = By.cssSelector("table.dataTable td.item");
 
     @Before
@@ -30,37 +32,38 @@ public class WorkWithCartTests {
     @Test
     public void testWorkWithCart() {
         selectFirstProduct();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(0);
         selectByValueFromSelectOptions("Small");
         addCart();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(1);
 
         returnToMainPage();
 
         selectFirstProduct();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(1);
         selectByValueFromSelectOptions("Medium");
         addCart();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(2);
 
         returnToMainPage();
 
         selectFirstProduct();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(2);
         selectByValueFromSelectOptions("Large");
         addCart();
-        assertProductCounterIs(currentNumOfProductsInCart);
+        assertProductCounterIs(3);
 
         checkOut();
-        assertOrderTableItemsNumber(currentNumOfProductsInCart);
+        assertOrderTableItemsNumber(3);
         removeCurrentProductFromCart();
-        assertOrderTableItemsNumber(currentNumOfProductsInCart);
+        assertOrderTableItemsNumber(2);
 
         removeCurrentProductFromCart();
-        assertOrderTableItemsNumber(currentNumOfProductsInCart);
+        assertOrderTableItemsNumber(1);
 
         removeCurrentProductFromCart();
-        assertOrderTableItemsNumber(currentNumOfProductsInCart);
+        assertOrderTableItemsNumber(0);
+
     }
 
     private void selectFirstProduct() {
@@ -74,7 +77,6 @@ public class WorkWithCartTests {
 
     private void addCart() {
         driver.findElement(By.cssSelector("button[name=add_cart_product]")).click();
-        currentNumOfProductsInCart += 1;
     }
 
     private void returnToMainPage() {
@@ -90,12 +92,17 @@ public class WorkWithCartTests {
     }
 
     public void removeCurrentProductFromCart() {
+        WebElement orderSummaryTable = driver.findElement(By.cssSelector("table .dataTable"));
         driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
-        currentNumOfProductsInCart -= 1;
+        Assert.assertTrue(isUpdated(orderSummaryTable));
     }
 
     public void assertOrderTableItemsNumber(int count) {
         wait.until(numberOfElementsToBe(productsInSummaryTable, count));
+    }
+
+    public boolean isUpdated(WebElement element) {
+        return wait.until(stalenessOf(element));
     }
 
     @After
