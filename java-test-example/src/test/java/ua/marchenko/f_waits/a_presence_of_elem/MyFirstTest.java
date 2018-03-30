@@ -22,12 +22,15 @@ public class MyFirstTest {
 
     @Test
     public void testFirstTest() {
+        driver.get("http://google.com");
+        listNthElementHasText(By.cssSelector("asd"), 5, "dfsd");
         WebElement element = wait.until(presenceOfElementLocated(By.name("q")));
         WebElement element2 = wait.until((WebDriver d) -> d.findElement(By.name("q")));
         driver.get("http://google.com");
 
         driver.navigate().refresh();
         wait.until(stalenessOf(element));
+
 
         wait.until(visibilityOf(element));
 
