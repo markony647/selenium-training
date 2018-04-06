@@ -35,10 +35,10 @@ public class ProductsBrowserLogTests {
     public void testProductsNotContainErrorsInLog() {
         login();
         openCatalog();
-        visitEachProductAndCheckLog();
+        checkEachProductPageForJsErrors();
     }
 
-    private void visitEachProductAndCheckLog() {
+    private void checkEachProductPageForJsErrors() {
         int numOfProducts = driver.findElements(products).size();
         for (int i = 0; i < numOfProducts; i++) {
             getProductByIndex(i).click();
