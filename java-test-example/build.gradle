@@ -11,10 +11,11 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'com.tngtech.java', name: 'junit-dataprovider', version: '1.12.0'
     compile 'org.seleniumhq.selenium:selenium-server:3.10.0'
     compile 'ru.stqa.selenium:webdriver-factory:4.3'
     compile 'com.automation-remarks:video-recorder-junit:1.7'
-    compile 'net.lightbody.bmp:browsermob-core:2.1.5'
+    compile 'net.lightbody.bmp:browsermob-concise_api:2.1.5'
 }
 
 test {
